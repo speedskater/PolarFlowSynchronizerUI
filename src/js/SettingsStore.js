@@ -1,5 +1,5 @@
 var fs = require('fs');
-var keychain = require('xkeychain');
+//var keychain = require('xkeychain');
 var email = window.localStorage.email;
 var directory = window.localStorage.directory;
 var password = '';
@@ -40,13 +40,13 @@ var SettingsStore = Reflux.createStore({
 	},
 	setPassword: function(passwordParam) {
 		password = passwordParam;
-		keychain.setPassword({ account: email, service: 'polar-flow-synchronizer-ui', password: password }, function(err) {
+		/*keychain.setPassword({ account: email, service: 'polar-flow-synchronizer-ui', password: password }, function(err) {
 			if(!err) {
 				console.log("Password stored in keychain");
 			} else {
 				console.log("Password storage in keychain failed: " + err);
 			}
-		});
+		});*/
 	},
 	isValid: function() {
 		function isDefined(value) {
@@ -67,14 +67,14 @@ var SettingsStore = Reflux.createStore({
 
 	load: function() {
 		var triggerUpdate = this.triggerUpdate.bind(this);
-		window.setTimeout(function() {
+		/*window.setTimeout(function() {
 			keychain.getPassword({account: email, service: 'polar-flow-synchronizer-ui'}, function (err, pass) {
 				if (!err && password == '') {
 					password = pass;
 					triggerUpdate();
 				}
 			});
-		}, 1);
+		}, 1);*/
 	}
 });
 

@@ -1,6 +1,5 @@
 var React = require('react/addons'),
 	ProgressBar = require('./ProgressBar.jsx'),
-	Api = require('../Api.js'),
 	Reflux = require('reflux'),
 	SettingsStore = require('../SettingsStore.js'),
 	SyncActions = require('../actions/SyncActions.js'),

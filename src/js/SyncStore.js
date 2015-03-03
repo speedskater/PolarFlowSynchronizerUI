@@ -18,12 +18,13 @@ var SyncStore = Reflux.createStore({
 		// Register statusUpdate action
 		this.listenTo(SyncActions.sync, this.syncStarted.bind(this));
 		this.listenTo(SyncActions.sync.completed, this.syncFinished.bind(this));
-		this.listenTo(SyncActions.sync.failed, this.syncFinished.bind(this));
+		this.listenTo(SyncActions.sync.failed, this.syncFailed.bind(this));
 		this.listenTo(SyncActions.sync.progress, this.updateSyncState.bind(this));
 	},
 
 	syncStarted: function() {
 		this.isSyncing = true;
+		this.errorOccurred = null;
 		this.processedUrls = [];
 		this.existingFiles = [];
 		this.syncedFiles = [];
@@ -33,6 +34,11 @@ var SyncStore = Reflux.createStore({
 		this.noFilesSuccessful = 0;
 		this.noFilesFailed = 0;
 		this.triggerUpdate();
+	},
+
+	syncFailed: function(error, nrFilesDownloaded, couldNotDownload, falseMimeTypes, successfullDownloads, existingFiles) {
+		this.errorOccurred = error;
+		this.syncFinished(nrFilesDownloaded, couldNotDownload, falseMimeTypes, successfullDownloads, existingFiles);
 	},
 
 	syncFinished: function(nrFilesDownloaded, couldNotDownload, falseMimeTypes, successfullDownloads, existingFiles) {
@@ -57,6 +63,7 @@ var SyncStore = Reflux.createStore({
 
 	triggerUpdate: function() {
 		this.trigger({
+			errorOccurred: this.errorOccurred,
 			isSyncing: this.isSyncing,
 			processedUrls: this.processedUrls,
 			existingFiles: this.existingFiles,
@@ -65,7 +72,8 @@ var SyncStore = Reflux.createStore({
 			noFilesFailed: this.noFilesFailed,
 			noFilesSuccessful: this.noFilesSuccessful,
 			totalNumberFiles: this.totalNumberFiles,
-			failedFiles: this.failedFiles
+			failedFiles: this.failedFiles,
+			syncStarted: true
 		});
 	}
 });

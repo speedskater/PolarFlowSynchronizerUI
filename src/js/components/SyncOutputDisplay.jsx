@@ -10,6 +10,7 @@ SyncOutputDisplay = React.createClass({
 
 	getInitialState: function() {
 		return {
+			syncStarted: false,
 			isSyncing: false,
 			processedUrls: 0,
 			syncedFiles: [],
@@ -23,7 +24,15 @@ SyncOutputDisplay = React.createClass({
 	},
 
 	render: function() {
-		return (this.state.isSyncing) ? this.renderSyncingState() : this.renderSyncFinishedState();
+		var output;
+
+		if(!this.state.syncStarted) {
+			output = <div>Please fill out the application settings and start synching.</div>
+		} else {
+			output = (this.state.isSyncing) ? this.renderSyncingState() : this.renderSyncFinishedState();
+		}
+
+		return output;
 	},
 
 	renderSyncingState: function() {
@@ -37,7 +46,13 @@ SyncOutputDisplay = React.createClass({
 
 	renderSyncFinishedState: function() {
 		var outputs = [];
-		var hasFailures = this.state.wrongFormatFiles.length > 0 || this.state.failedFiles.length > 0;
+		var hasFailures = !!this.state.errorOccurred || this.state.wrongFormatFiles.length > 0 || this.state.failedFiles.length > 0;
+
+		if(!!this.state.errorOccurred) {
+			outputs.push(<div className="alert alert-danger">
+				{this.state.errorOccurred.message}
+			</div>)
+		}
 
 		if(this.state.syncedFiles.length > 0 || hasFailures) {
 			outputs.push(this.createSummary("Successfully downloaded " + this.state.syncedFiles.length + " trainings.", this.state.syncedFiles));

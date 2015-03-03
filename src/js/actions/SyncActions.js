@@ -26,7 +26,7 @@ SyncActions.sync.listen(function() {
 		if(!error) {
 			completed(nrFilesDownloaded, couldNotDownload, falseMimeTypes, successfullDownloads, existingFiles);
 		} else {
-			failed(nrFilesDownloaded, couldNotDownload, falseMimeTypes, successfullDownloads, existingFiles)
+			failed(error, nrFilesDownloaded, couldNotDownload, falseMimeTypes, successfullDownloads, existingFiles)
 		}
 	}, function(totalNumberFiles, filesProcessed, filesFailed, trainingUrl, successful) {
 		progress(totalNumberFiles, filesProcessed, filesFailed, trainingUrl, successful);
