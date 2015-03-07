@@ -82,9 +82,11 @@ Function welcome
 
 FunctionEnd
 
+RequestExecutionLevel admin
+
 ; Installation declarations
 Section "Install"
-
+   SetShellVarContext all
     WriteRegStr HKLM "${regkey}" "Install_Dir" "$INSTDIR"
     WriteRegStr HKLM "${uninstkey}" "DisplayName" "${name}"
     WriteRegStr HKLM "${uninstkey}" "DisplayIcon" '"$INSTDIR\icon.ico"'
@@ -149,7 +151,7 @@ FunctionEnd
 
 ; Uninstall declarations
 Section "Uninstall"
-
+    SetShellVarContext all
     DeleteRegKey HKLM "${uninstkey}"
     DeleteRegKey HKLM "${regkey}"
 
