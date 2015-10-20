@@ -29,7 +29,7 @@ gulp.task('nodewebkit', function(cb) {
 	var nw = new NwBuilder({
 		files: './src/**/**', // use the glob format
 		version: '0.11.5',
-		platforms: ['osx32', 'osx64', 'win32', 'win64', 'linux32', 'linux64'],
+		platforms: ['osx32', 'osx64', 'win32', 'linux32', 'linux64'],
 		zip: false,
 		winIco: './images/Icon.ico',
 		macIcns: './images/MacIcon.icns',
@@ -42,8 +42,23 @@ gulp.task('nodewebkit', function(cb) {
 
 // Build returns a promise
 	nw.build().then(function () {
-		cb(null);
-		console.log('all done!');
+		var nw = new NwBuilder({
+			files: './src/**/**', // use the glob format
+			version: '0.11.5',
+			platforms: ['win64'],
+			zip: false,
+			winIco: './images/Icon.ico',
+			macIcns: './images/MacIcon.icns',
+			buildDir: './webkitbuilds' // Where the build version of my node-webkit app is saved
+		});
+		nw.on('log',  console.log);
+		nw.build().then(function () {
+			cb(null);
+			console.log('all done!');
+		}).catch(function (error) {
+			cb(error);
+			console.error(error);
+		});
 	}).catch(function (error) {
 		cb(error);
 		console.error(error);
