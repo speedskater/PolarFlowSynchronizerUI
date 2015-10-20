@@ -1,7 +1,7 @@
 {
   "name": "polar-flow-synchronizer-ui",
   "prettyName": "Polar Flow Synchronizer UI",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A gui application for synchronizing tcx files in a local folder with your polar flow files",
   "main": "index.html",
   "scripts": {
@@ -29,10 +29,10 @@
   "author": "Robert Binna",
   "license": "ISC",
   "dependencies": {
-    "node-jsx": "^0.12.4",
-    "polar-flow-synchronizer": "^1.0.10",
-    "react": "^0.12.2",
-    "reflux": "^0.2.5",
-    "tough-cookie": "^0.12.1"
+    "node-jsx": "0.12.4",
+    "polar-flow-synchronizer": "1.0.11",
+    "react": "0.12.2",
+    "reflux": "0.2.5",
+    "tough-cookie": "0.12.1"
   }
 }

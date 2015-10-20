@@ -1,7 +1,7 @@
 {
   "name": "polar-flow-synchronizer-ui",
   "prettyName": "Polar Flow Synchronizer UI",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A gui application for synchronizing tcx files in a local folder with your polar flow files",
   "node-main": "index.js",
   "main": "component.html#MainScreen",
